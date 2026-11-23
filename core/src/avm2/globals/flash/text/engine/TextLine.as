@@ -111,12 +111,16 @@ package flash.text.engine {
 
         public function getAtomTextBlockBeginIndex(index:int):int {
             stub_method("flash.text.engine.TextLine", "getAtomTextBlockBeginIndex");
-            return 0;
+            if (index < 0 || index >= this.atomCount) {
+                Error.throwError(RangeError, 2006);
+            }
+            // Match the one-code-unit-per-atom model of getAtomIndexAtCharIndex.
+            return this.textBlockBeginIndex + index;
         }
 
         public function getAtomTextBlockEndIndex(index:int):int {
             stub_method("flash.text.engine.TextLine", "getAtomTextBlockEndIndex");
-            return 0;
+            return this.getAtomTextBlockBeginIndex(index) + 1;
         }
 
         public function getAtomTextRotation(index:int):String {
